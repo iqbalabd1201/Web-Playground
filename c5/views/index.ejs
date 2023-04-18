@@ -1,0 +1,528 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,
+				initial-scale=1.0">
+    <style>
+        /* styles.css */
+/* universal selector - Applies to whole document */
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	background: rgb(142, 114, 77);
+	color: #fff;
+}
+
+/* To center everything in game */
+.game {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	width: 100vw;
+	justify-content: center;
+	align-items: center;
+}
+
+/* Title of the game */
+/* .title{
+	position: absolute;
+	top: 0;
+	font-size: 4rem;
+	z-index: 2;
+} */
+
+/* Score Board */
+/* .score{
+	display: flex;
+	width: 30vw;
+	justify-content: space-evenly;
+	position: absolute;
+	top: 70px;
+	z-index: 1;
+} */
+
+/* Score */
+.p-count,
+.c-count {
+	text-align: center;
+	font-size: 1.5rem;
+	margin-top: 1rem;
+}
+
+/* displaying three buttons in one line */
+
+/* .options{
+	display: grid;
+	width: 50vw; 
+	justify-content: space-evenly;
+	margin-top: 2rem;
+} */
+/* Styling on all three buttons */
+.player_rock,
+.player_paper,
+.player_scissor {
+	padding: 0.8rem;
+	width: 100px;
+	border-radius: 10px;
+	/* background: grey; */
+	outline: none;
+	/* border-color: green; */
+	border: none;
+	cursor: pointer;
+	font-size: 0;
+
+}
+
+.computer_rock,
+.computer_paper,
+.computer_scissor {
+	padding: 0.8rem;
+	width: 100px;
+	border-radius: 10px;
+	/* background: grey; */
+	outline: none;
+	/* border-color: green; */
+	border: none;
+	font-size: 0
+		/* cursor: pointer; */
+}
+
+.move {
+	font-size: 2rem;
+	font-weight: bold;
+}
+
+/* Reload button style */
+
+
+.result {
+	margin-top: 20px;
+	font-size: 1.2rem;
+	align-items: center;
+	justify-items: center;
+	width: 10rem;
+
+}
+
+/* Responsive Design */
+@media screen and (max-width: 612px) {
+	.title {
+		text-align: center;
+	}
+
+	.score {
+		position: absolute;
+		top: 200px;
+		width: 100vw;
+	}
+
+	.options {
+		width: 100vw;
+	}
+}
+
+
+.grid-container {
+	/* margin: 0 auto; */
+	display: grid;
+	/* grid-template-columns: 1fr 1fr 1fr; */
+	/* grid-template-rows: 1fr;
+    grid-column-gap: 0px; */
+	/* width: 60vw;
+    height: 450px; */
+}
+
+.left {
+	/* background-color: hsl(31, 77%, 52%); */
+	grid-column: 1;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+.middle {
+	/* background-color: hsl(184, 100%, 22%); */
+	grid-column: 2;
+	/* background-size: 3em 25%; */
+	background-color: rgb(142, 114, 77);
+	/* background-color: rgb(142, 114, 77); */
+
+	height: 80px;
+	width: 160px;
+	align-self: center;
+	/* background-color: powderblue; */
+	/* margin-top: 100px;
+	margin-bottom: 100px; */
+	margin-right: 80px;
+	margin-left: 80px;
+}
+
+.right {
+	/* background-color: hsl(179, 100%, 13%); */
+	grid-column: 3;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+/* Reload button style */
+.refresh {
+	align-items: center;
+	justify-items: center;
+	cursor: pointer;
+	padding: 0.8rem;
+	width: 100px;
+	border-radius: 10px;
+	/* background: grey; */
+	outline: none;
+	/* border-color: green; */
+	border: none;
+	cursor: pointer;
+	font-size: 0;
+
+}
+
+.tulisanPlayer {
+	color: black;
+	margin-left: 20px;
+	font-weight: bold;
+
+}
+
+.tulisanCom {
+	color: black;
+	margin-left: 30px;
+	font-weight: bold;
+
+}
+
+.tulisanVS {
+	color: red;
+	font-size: 60px;
+}
+
+.title {
+	position: absolute;
+	top: 40px;
+	left: 40px;
+}
+.tulisanTitle {
+	color: rgb(246, 161, 34);
+	font-size: 20px;
+	font-weight: bold;
+}
+    </style>
+	<title>Rock Paper Scissor</title>
+</head>
+
+<body>
+	<section class="game">
+		<!--Title -->
+		<div class="title"> 
+			<div class="tulisanTitle">
+				<a href="/">
+                    <button><</button>
+                </a>
+				ROCK PAPER SCISSOR
+
+			</div> 
+		</div>
+		<!--Options available to player to play game -->
+		<div class="wrapper options">
+			<div class="grid-container">
+				<div class='left player grid-container'>
+					<span class="tulisanPlayer">PLAYER</span>
+					<button class="player_rock" id='player_rock'>
+						<img  id='player_rock_img' src="../public/images/batu.png" width="100%">Rock</button>
+					<button class="player_paper" id='player_paper'>
+						<img id='player_paper_img'src="../public/images/kertas.png" width="100%">Paper</button>
+					<button class="player_scissor" id='player_scissor'>
+						<img id='player_scissor_img'src="../public/images/gunting.png" width="100%">Scissors</button>
+				</div>
+				<div class="middle result grid-container"  id="versus">
+					<span class="tulisanVS">vs</span>
+				</div>
+				<div class="right computer grid-container">
+					<span class="tulisanCom">COM</span>
+					<button class="computer_rock" id='computer_rock'>
+						<img id='computer_rock_img' src="../public/images/batu.png" width="100%">batu</button>
+					<button class="computer_paper" id='computer_paper'>
+						<img id='computer_paper_img' src="../public/images/kertas.png" width="100%">kertas</button>
+					<button class="computer_scissor" id='computer_scissor'>
+						<img id='computer_scissor_img' src="../public/images/gunting.png" width="100%">gunting</button>
+				</div>
+			</div>
+		</div>
+		<div class="bottom">
+			<button class = 'refresh' onclick="myFunction()">
+				<img src="../public/images/refresh.png" width="50" height="50" alt="">
+			</button>
+			
+		</div>
+
+		<!--Final result of game -->
+
+
+		<!--Reload the game -->
+
+
+	</section>
+
+	<script>
+        // app.js
+
+// Complete logic of game inside this function
+function myFunction() {
+    document.getElementById("versus").innerHTML = "VS";
+    document.getElementById("versus").style.color = "red";
+    document.getElementById("versus").style.fontSize = "44px";
+    document.getElementById("versus").style.backgroundColor = "rgb(142, 114, 77)";
+    document.getElementById("versus").style.transform = "rotate(0deg)"; 
+    document.getElementById("player_rock_img").style.backgroundColor = "rgb(142, 114, 77)";
+    document.getElementById("player_rock").style.backgroundColor = "rgb(142, 114, 77)";
+    document.getElementById("player_paper_img").style.backgroundColor = "rgb(142, 114, 77)";
+    document.getElementById("player_paper").style.backgroundColor = "rgb(142, 114, 77)";
+    document.getElementById("player_scissor_img").style.backgroundColor = "rgb(142, 114, 77)";
+    document.getElementById("player_scissor").style.backgroundColor = "rgb(142, 114, 77)";
+    document.getElementById("computer_rock_img").style.backgroundColor = "rgb(142, 114, 77)";
+    document.getElementById("computer_rock").style.backgroundColor = "rgb(142, 114, 77)";
+    document.getElementById("computer_paper_img").style.backgroundColor = "rgb(142, 114, 77)";
+    document.getElementById("computer_paper").style.backgroundColor = "rgb(142, 114, 77)";
+    document.getElementById("computer_scissor_img").style.backgroundColor = "rgb(142, 114, 77)";
+    document.getElementById("computer_scissor").style.backgroundColor = "rgb(142, 114, 77)";
+  }
+const game = () => {
+
+    // Function to
+    const playGame = () => {
+        const rockPlayerBtn = document.querySelector('.player_rock');
+        const paperPlayerBtn = document.querySelector('.player_paper');
+        const scissorPlayerBtn = document.querySelector('.player_scissor');
+
+        const playerOptions = [rockPlayerBtn, paperPlayerBtn, scissorPlayerBtn];
+        const computerOptions = ['rock', 'paper', 'scissors']
+
+        
+        // Function to start playing game
+        playerOptions.forEach(option => {
+            option.addEventListener('click', function () {
+
+
+                const choiceNumber = Math.floor(Math.random() * 3);
+                const computerChoice = computerOptions[choiceNumber];
+
+                // Function to check who wins
+                winner(this.innerText, computerChoice)
+
+
+            })
+        })
+
+    }
+
+    // Function to decide winner
+    const winner = (player, computer) => {
+        const result = document.querySelector('.result');
+        player = player.toLowerCase();
+        computer = computer.toLowerCase();
+        if (player == 'rock') {
+            if (computer == 'paper') {
+                result.textContent = 'Computer Won';
+                result.style.color = 'white';
+                document.getElementById("versus").style.fontSize = "20px";
+                document.getElementById("versus").style.backgroundColor = "green";
+                document.getElementById("versus").style.transform = "rotate(-25deg)"; 
+                document.getElementById("player_rock_img").style.backgroundColor = "grey";
+                document.getElementById("player_rock").style.backgroundColor = "grey";
+                document.getElementById("player_paper_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_paper").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_scissor_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_scissor").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_rock_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_rock").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_paper_img").style.backgroundColor = "grey";
+                document.getElementById("computer_paper").style.backgroundColor = "grey";
+                document.getElementById("computer_scissor_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_scissor").style.backgroundColor = "rgb(142, 114, 77)";
+
+
+            } else if (computer == 'scissors') {
+                result.textContent = 'Player Won'
+                result.style.color = 'white';
+                document.getElementById("versus").style.fontSize = "20px";
+
+                document.getElementById("versus").style.backgroundColor = "green";
+                document.getElementById("versus").style.transform = "rotate(-25deg)"; 
+                document.getElementById("player_rock_img").style.backgroundColor = "grey";
+                document.getElementById("player_rock").style.backgroundColor = "grey";
+                document.getElementById("player_paper_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_paper").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_scissor_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_scissor").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_rock_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_rock").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_paper_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_paper").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_scissor_img").style.backgroundColor = "grey";
+                document.getElementById("computer_scissor").style.backgroundColor = "grey";
+
+            }
+            else if (computer == 'rock') {
+                result.textContent = 'Tie'
+                result.style.color = 'white'
+                document.getElementById("versus").style.fontSize = "20px";
+
+                document.getElementById("versus").style.backgroundColor = "darkgreen";
+                document.getElementById("versus").style.transform = "rotate(-25deg)"; 
+                document.getElementById("player_rock_img").style.backgroundColor = "grey";
+                document.getElementById("player_rock").style.backgroundColor = "grey";
+                document.getElementById("player_paper_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_paper").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_scissor_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_scissor").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_rock_img").style.backgroundColor = "grey";
+                document.getElementById("computer_rock").style.backgroundColor = "grey";
+                document.getElementById("computer_paper_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_paper").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_scissor_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_scissor").style.backgroundColor = "rgb(142, 114, 77)";
+
+            }
+
+        }
+        else if (player == 'scissors') {
+            if (computer == 'rock') {
+                result.textContent = 'Computer Won';
+                result.style.color = 'white';
+                document.getElementById("versus").style.fontSize = "20px";
+                document.getElementById("versus").style.backgroundColor = "green";
+                document.getElementById("versus").style.transform = "rotate(-25deg)"; 
+                document.getElementById("player_rock_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_rock").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_paper_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_paper").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_scissor_img").style.backgroundColor = "grey";
+                document.getElementById("player_scissor").style.backgroundColor = "grey";
+                document.getElementById("computer_rock_img").style.backgroundColor = "grey";
+                document.getElementById("computer_rock").style.backgroundColor = "grey";
+                document.getElementById("computer_paper_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_paper").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_scissor_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_scissor").style.backgroundColor = "rgb(142, 114, 77)";
+
+            } else if (computer == 'paper') {
+                result.textContent = 'Player Won';
+                result.style.color = 'white';
+                document.getElementById("versus").style.fontSize = "20px";
+                document.getElementById("versus").style.backgroundColor = "green";
+                document.getElementById("versus").style.transform = "rotate(-25deg)"; 
+                document.getElementById("player_rock_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_rock").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_paper_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_paper").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_scissor_img").style.backgroundColor = "grey";
+                document.getElementById("player_scissor").style.backgroundColor = "grey";
+                document.getElementById("computer_rock_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_rock").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_paper_img").style.backgroundColor = "grey";
+                document.getElementById("computer_paper").style.backgroundColor = "grey";
+                document.getElementById("computer_scissor_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_scissor").style.backgroundColor = "rgb(142, 114, 77)";
+            }
+            else if (computer == 'scissors') {
+                result.textContent = 'Tie'
+                result.style.color = 'white'
+                document.getElementById("versus").style.fontSize = "20px";
+                document.getElementById("versus").style.backgroundColor = "darkgreen";
+                document.getElementById("versus").style.transform = "rotate(-25deg)"; 
+                document.getElementById("player_rock_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_rock").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_paper_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_paper").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_scissor_img").style.backgroundColor = "grey";
+                document.getElementById("player_scissor").style.backgroundColor = "grey";
+                document.getElementById("computer_rock_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_rock").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_paper_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_paper").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_scissor_img").style.backgroundColor = "grey";
+                document.getElementById("computer_scissor").style.backgroundColor = "grey";
+            }
+        }
+        else if (player == 'paper') {
+            if (computer == 'scissors') {
+                result.textContent = 'Computer Won';
+                result.style.color = 'white';
+                document.getElementById("versus").style.fontSize = "20px";
+                document.getElementById("versus").style.backgroundColor = "green";
+                document.getElementById("versus").style.transform = "rotate(-25deg)"; 
+                document.getElementById("player_rock_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_rock").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_paper_img").style.backgroundColor = "grey";
+                document.getElementById("player_paper").style.backgroundColor = "grey";
+                document.getElementById("player_scissor_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_scissor").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_rock_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_rock").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_paper_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_paper").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_scissor_img").style.backgroundColor = "grey";
+                document.getElementById("computer_scissor").style.backgroundColor = "grey";
+            } else if (computer == 'rock') {
+                result.textContent = 'Player Won';
+                result.style.color = 'white';
+                document.getElementById("versus").style.fontSize = "20px";
+                document.getElementById("versus").style.backgroundColor = "green";
+                document.getElementById("versus").style.transform = "rotate(-25deg)"; 
+                document.getElementById("player_rock_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_rock").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_paper_img").style.backgroundColor = "grey";
+                document.getElementById("player_paper").style.backgroundColor = "grey";
+                document.getElementById("player_scissor_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_scissor").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_rock_img").style.backgroundColor = "grey";
+                document.getElementById("computer_rock").style.backgroundColor = "grey";
+                document.getElementById("computer_paper_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_paper").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_scissor_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_scissor").style.backgroundColor = "rgb(142, 114, 77)";
+            }
+            else if (computer == 'paper') {
+                result.textContent = 'Tie'
+                result.style.color = 'white'
+                document.getElementById("versus").style.backgroundColor = "darkgreen";
+                document.getElementById("versus").style.transform = "rotate(-25deg)"; 
+                document.getElementById("versus").style.fontSize = "20px";
+                document.getElementById("player_rock_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_rock").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_paper_img").style.backgroundColor = "grey";
+                document.getElementById("player_paper").style.backgroundColor = "grey";
+                document.getElementById("player_scissor_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("player_scissor").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_rock_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_rock").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_paper_img").style.backgroundColor = "grey";
+                document.getElementById("computer_paper").style.backgroundColor = "grey";
+                document.getElementById("computer_scissor_img").style.backgroundColor = "rgb(142, 114, 77)";
+                document.getElementById("computer_scissor").style.backgroundColor = "rgb(142, 114, 77)";
+            }
+        }
+    }
+
+
+
+    // Calling playGame function inside game
+    playGame();
+
+}
+
+// Calling the game function
+game();
+
+    </script>
+</body>
+
+</html>
